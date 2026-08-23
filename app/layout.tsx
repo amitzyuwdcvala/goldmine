@@ -44,7 +44,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable} ${jbMono.variable}`}>
-      <body className="bg-vault-950 text-parchment-100 font-body antialiased">
+      <body className="bg-sb-canvas text-ink font-sans antialiased min-h-screen">
         {children}
       </body>
     </html>

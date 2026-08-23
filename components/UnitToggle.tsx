@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 export default function UnitToggle({
   value,
   onChange,
@@ -8,20 +10,29 @@ export default function UnitToggle({
   onChange: (v: "gram" | "tola") => void;
 }) {
   return (
-    <div className="inline-flex items-center rounded-lg border border-vault-600/60 bg-vault-950/80 p-0.5 sm:p-1">
-      {(["gram", "tola"] as const).map((u) => (
-        <button
-          key={u}
-          onClick={() => onChange(u)}
-          className={`rounded-md px-2.5 py-1 sm:px-3 sm:py-1.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider transition-all duration-200 ${
-            value === u
-              ? "bg-gradient-to-r from-bullion-600 to-bullion-500 text-vault-950 font-semibold shadow-[0_2px_8px_-2px_rgba(212,175,55,0.4)]"
-              : "text-parchment-200/40 hover:text-parchment-100"
-          }`}
-        >
-          per {u}
-        </button>
-      ))}
+    <div className="inline-flex items-center rounded-pill bg-white border border-sb-border-subtle p-1 shadow-sb-card">
+      {(["gram", "tola"] as const).map((u) => {
+        const active = value === u;
+        return (
+          <button
+            key={u}
+            type="button"
+            onClick={() => onChange(u)}
+            className={`relative rounded-pill px-3 py-1 font-sans text-xs font-semibold tracking-tight transition-colors duration-150 active:scale-[0.95] ${
+              active ? "text-white" : "text-ink-soft hover:text-ink"
+            }`}
+          >
+            {active && (
+              <motion.div
+                layoutId="unit-pill"
+                transition={{ type: "spring", stiffness: 450, damping: 30 }}
+                className="absolute inset-0 rounded-pill bg-sb-accent shadow-sb-pill"
+              />
+            )}
+            <span className="relative z-10">per {u}</span>
+          </button>
+        );
+      })}
     </div>
   );
 }

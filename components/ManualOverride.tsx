@@ -8,30 +8,35 @@ export default function ManualOverride({
   onChange: (v: string) => void;
 }) {
   return (
-    <div className="rounded-xl sm:rounded-2xl border border-vault-600/50 bg-vault-900/60 p-3.5 sm:p-5 shadow-card">
-      <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-parchment-200/60">
-        Manual spot override
-      </p>
-      <p className="mt-0.5 text-[11px] sm:text-[13px] text-parchment-200/40">
-        Enter test price per troy ounce to override feed.
-      </p>
+    <div className="rounded-card bg-white p-4 sm:p-5 shadow-sb-card border border-sb-border-subtle">
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="font-sans text-xs sm:text-sm font-bold text-ink">
+            Manual Spot Override
+          </h3>
+          <p className="mt-0.5 text-[11px] sm:text-xs text-ink-soft">
+            Enter test price per troy ounce to override feed.
+          </p>
+        </div>
+      </div>
 
-      <div className="mt-3 flex items-center gap-2 rounded-xl border border-vault-600/60 bg-vault-950/70 px-3 py-2 sm:py-2.5 focus-within:border-bullion-500/60 transition-colors">
-        <span className="font-mono text-sm text-parchment-200/40">$</span>
+      <div className="mt-3.5 flex items-center gap-2 rounded-pill bg-sb-canvas border border-sb-border px-3.5 py-1.5 sm:py-2 focus-within:border-sb-accent focus-within:ring-2 focus-within:ring-sb-accent/15 transition-all">
+        <span className="font-serif text-sm font-bold text-sb-accent">$</span>
         <input
           type="number"
           inputMode="decimal"
           min={0}
           step="0.01"
-          placeholder="e.g. 2415.30"
+          placeholder="e.g. 2935.50"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full bg-transparent font-mono text-sm text-parchment-100 placeholder:text-parchment-200/25 outline-none tabular"
+          className="w-full bg-transparent font-sans text-xs sm:text-sm font-semibold text-ink placeholder:text-ink-muted/50 outline-none tabular"
         />
         {value !== "" && (
           <button
+            type="button"
             onClick={() => onChange("")}
-            className="rounded-md px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-parchment-200/50 hover:text-bullion-400 hover:bg-vault-800/60 transition-colors"
+            className="rounded-pill bg-white px-2.5 py-0.5 text-[11px] font-bold text-ink-soft hover:text-ink hover:bg-sb-light/50 transition-colors shadow-sm"
           >
             Clear
           </button>

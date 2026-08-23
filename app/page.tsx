@@ -71,12 +71,10 @@ export default function Page() {
     }
   }, []);
 
-  // Initial fetch on mount
   useEffect(() => {
     fetchPrice();
   }, [fetchPrice]);
 
-  // Set up polling only in auto mode
   useEffect(() => {
     if (refreshMode !== "auto") return;
     const id = setInterval(() => {
@@ -108,72 +106,74 @@ export default function Page() {
 
   const displayRates: Record<Karat, number> | null = rates
     ? unit === "tola"
-    ? (Object.fromEntries(
+      ? (Object.fromEntries(
           Object.entries(rates).map(([k, v]) => [k, perGramToPerTola(v)])
         ) as Record<Karat, number>)
       : rates
     : null;
 
   return (
-    <main className="min-h-screen">
-      <div className="mx-auto max-w-5xl px-3.5 py-5 sm:px-6 sm:py-14">
-        {/* Header */}
-        <header className="mb-4 sm:mb-8 flex items-center justify-between">
-          <div>
-            <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-bullion-500/80">
-              Aurum Desk
-            </p>
-            <h1 className="mt-0.5 font-display text-xl font-medium text-parchment-100 sm:text-3xl">
-              Live Gold Rate Calculator
-            </h1>
+    <div className="min-h-screen bg-sb-canvas text-ink flex flex-col justify-between selection:bg-sb-light selection:text-sb-green">
+      {/* ── Global Flagship Navigation Bar ─────────────────────────────── */}
+      <nav className="sticky top-0 z-30 border-b border-sb-border-subtle bg-white/95 backdrop-blur-md shadow-sb-nav">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-3.5 py-3 sm:px-6">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            {/* Starbucks Emblem */}
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-sb-green text-white shadow-sm flex-shrink-0">
+              <span className="font-serif font-bold text-sm">Au</span>
+            </div>
+            <div>
+              <h1 className="font-sans text-base sm:text-lg font-bold tracking-tight text-sb-green">
+                Aurum Desk
+              </h1>
+              <p className="hidden xs:block text-[11px] font-medium text-ink-soft">
+                Live Gold Rate Calculator &middot; Purity Exchange
+              </p>
+            </div>
           </div>
+
           <div className="flex items-center gap-2 sm:gap-3">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-bullion-600/30 bg-vault-900/60 px-2.5 py-0.5 sm:px-3 sm:py-1 font-mono text-[10px] sm:text-[11px] text-parchment-200/50">
-              <span
-                className={`h-1.5 w-1.5 rounded-full ${
-                  refreshMode === "auto" ? "bg-bullion-500 animate-pulseDot" : "bg-ember"
-                }`}
-              />
-              <span className="hidden xs:inline">
-                {refreshMode === "auto" ? "Auto Feed Active" : "Manual Feed Active"}
-              </span>
-              <span className="xs:hidden">
-                {refreshMode === "auto" ? "Auto" : "Manual"}
-              </span>
+            {/* Feed Status Badge */}
+            <span className="hidden sm:inline-flex items-center gap-1.5 rounded-pill bg-sb-light/50 border border-sb-green/20 px-3 py-1 text-xs font-semibold text-sb-green">
+              <span className="h-2 w-2 rounded-full bg-sb-accent animate-pulse" />
+              <span>Live Market Active</span>
             </span>
 
+            {/* Admin Desk Pill CTA */}
             <Link
               href="/admin"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-vault-700 bg-vault-900/80 px-2.5 py-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-parchment-200/70 hover:text-bullion-400 hover:border-bullion-500/50 transition-colors"
-              title="Open Admin Settings"
+              className="sb-btn-secondary px-3.5 py-1.5 text-xs sm:text-sm"
+              title="Open Provider & API Desk"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
-                className="h-3 w-3"
+                strokeWidth="2.5"
+                className="h-3.5 w-3.5 mr-1.5"
               >
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                 <path d="M7 11V7a5 5 0 0 1 10 0v4" />
               </svg>
-              <span>Admin</span>
+              <span>Admin Desk</span>
             </Link>
           </div>
-        </header>
-
-        {/* Refresh Mode Switch & On-demand Refresh Trigger */}
-        <div className="mb-3 sm:mb-6">
-          <RefreshControl
-            mode={refreshMode}
-            onModeChange={setRefreshMode}
-            onRefresh={handleManualRefresh}
-            isRefreshing={isRefreshing}
-            lastFetchedAt={feed.status === "ready" ? feed.timestamp : null}
-          />
         </div>
+      </nav>
 
+      {/* ── Main Page Content ─────────────────────────────────────────── */}
+      <main className="mx-auto w-full max-w-5xl px-3.5 py-5 sm:px-6 sm:py-8 space-y-4 sm:space-y-6">
+        {/* Refresh Mode Switch & Controls */}
+        <RefreshControl
+          mode={refreshMode}
+          onModeChange={setRefreshMode}
+          onRefresh={handleManualRefresh}
+          isRefreshing={isRefreshing}
+          lastFetchedAt={feed.status === "ready" ? feed.timestamp : null}
+        />
+
+        {/* Hero Gold Ticker (House Green Band) */}
         {feed.status === "loading" ? (
           <TickerSkeleton />
         ) : feed.status === "error" && !isOverridden ? (
@@ -192,37 +192,90 @@ export default function Page() {
         )}
 
         {/* Desk Controls (Adjustment + Override) */}
-        <div className="mt-3 sm:mt-6 grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4">
+        <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 sm:gap-4">
           <AdjustmentToggle value={adjustment} onChange={setAdjustment} />
           <ManualOverride value={override} onChange={setOverride} />
         </div>
 
-        {/* Rates Header with Unit Switcher */}
-        <div className="mt-5 sm:mt-8 flex items-center justify-between">
-          <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-parchment-200/50">
-            Selling rates
-          </p>
+        {/* Karat Selling Rates Header + Unit Pill */}
+        <div className="pt-2 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-ink">
+              Karat Selling Rates
+            </h2>
+            <p className="text-xs text-ink-soft mt-0.5">
+              Live calculated rates based on international purity standards.
+            </p>
+          </div>
           <UnitToggle value={unit} onChange={setUnit} />
         </div>
 
-        {/* 2-Column Responsive Karat Grid */}
-        <div className="mt-2.5 sm:mt-3">
+        {/* Responsive Karat Grid */}
+        <div>
           {displayRates ? (
             <KaratGrid rates={displayRates} unit={unit} />
           ) : (
             <GridSkeleton />
           )}
         </div>
+      </main>
 
-        <footer className="mt-6 sm:mt-10 border-t border-vault-700/50 pt-4 sm:pt-6">
-          <p className="max-w-2xl text-[11px] sm:text-[12px] leading-relaxed text-parchment-200/35">
-            Rates are indicative and derived from a live international spot
-            price plus a manual world-situation adjustment and a flat $10
-            handling addition. They do not constitute a firm offer to buy or
-            sell.
-          </p>
-        </footer>
-      </div>
-    </main>
+      {/* ── Signature Floating "Frap" Circular Order/Refresh Action Button ────────── */}
+      <button
+        type="button"
+        onClick={handleManualRefresh}
+        disabled={isRefreshing}
+        className="frap-floating-btn group"
+        title="Instant spot price refresh"
+        aria-label="Instant spot price refresh"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className={`h-6 w-6 text-white transition-transform duration-300 ${
+            isRefreshing ? "animate-spin" : "group-hover:rotate-45"
+          }`}
+        >
+          <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+        </svg>
+      </button>
+
+      {/* ── Starbucks House Green Feature Footer ──────────────────────── */}
+      <footer className="mt-12 bg-sb-house text-white border-t border-sb-dark py-8 px-4 sm:px-6">
+        <div className="mx-auto max-w-5xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="font-serif font-bold text-lg text-white">Aurum Desk</span>
+              <span className="rounded-pill bg-sb-gold/20 border border-sb-gold/40 px-2.5 py-0.5 text-[10px] font-semibold text-sb-gold-light">
+                Flagship Edition
+              </span>
+            </div>
+            <p className="mt-1.5 max-w-xl text-xs text-chalk-soft leading-relaxed">
+              Rates are indicative and derived from live international spot bullion prices plus a standard market situation adjustment and nominal handling additions.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-4 text-xs font-semibold text-chalk-soft">
+            <Link href="/admin" className="hover:text-white transition-colors">
+              Admin Console
+            </Link>
+            <span>&middot;</span>
+            <a
+              href="https://goldapi.io"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              API Docs
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }
