@@ -25,9 +25,16 @@ const jbMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Live Gold Rate Calculator",
+  title: "Live Gold Rate Calculator — Aurum Desk",
   description:
     "Live international gold spot price with real-time karat-wise selling rate calculations — a precision bullion desk dashboard.",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: ["/icon.svg"],
+    apple: ["/icon.svg"],
+  },
 };
 
 export default function RootLayout({

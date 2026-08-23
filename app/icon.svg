@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="gold-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A1710"/>
+      <stop offset="100%" stop-color="#0A0906"/>
+    </linearGradient>
+    <linearGradient id="gold-bar" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F7F3E8"/>
+      <stop offset="25%" stop-color="#E8C766"/>
+      <stop offset="60%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#9A7210"/>
+    </linearGradient>
+    <linearGradient id="gold-accent" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#B8860B"/>
+      <stop offset="50%" stop-color="#F5E5AD"/>
+      <stop offset="100%" stop-color="#D4AF37"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Dark Vault Hexagonal/Rounded Background -->
+  <rect width="512" height="512" rx="128" fill="url(#gold-bg)"/>
+  <rect width="504" height="504" x="4" y="4" rx="124" fill="none" stroke="url(#gold-accent)" stroke-width="8" stroke-opacity="0.5"/>
+
+  <!-- Luxury Gold Ingot / Bullion Icon -->
+  <g transform="translate(0, 8)">
+    <!-- Top Trapezoid Face of Gold Bar -->
+    <polygon points="160,160 352,160 392,230 120,230" fill="url(#gold-bar)" filter="url(#glow)"/>
+    
+    <!-- Front Face of Gold Bar -->
+    <polygon points="120,230 392,230 362,352 150,352" fill="url(#gold-accent)"/>
+    
+    <!-- Inner Engraved Mint Mark (Aurum Desk Emblem 'A' + Sparkle) -->
+    <path d="M256 185 L280 275 H232 Z" fill="#0A0906" opacity="0.85"/>
+    <path d="M256 195 L272 260 H240 Z" fill="url(#gold-bar)"/>
+    
+    <polygon points="256,120 263,137 280,144 263,151 256,168 249,151 232,144 249,137" fill="#F7F3E8"/>
+    <polygon points="370,128 374,138 384,142 374,146 370,156 366,146 356,142 366,138" fill="#E8C766"/>
+  </g>
+</svg>
