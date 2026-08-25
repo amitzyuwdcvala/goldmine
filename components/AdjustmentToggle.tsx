@@ -9,7 +9,7 @@ export default function AdjustmentToggle({
   value: Adjustment;
   onChange: (v: Adjustment) => void;
 }) {
-  const options: Adjustment[] = [35, 50];
+  const options: Adjustment[] = [35, 50, 100, 150];
 
   return (
     <div className="rounded-xl sm:rounded-2xl border border-vault-600/50 bg-vault-900/60 p-3.5 sm:p-5 shadow-card">
@@ -27,7 +27,7 @@ export default function AdjustmentToggle({
       <div
         role="radiogroup"
         aria-label="World situation adjustment"
-        className="relative mt-3 grid grid-cols-2 gap-1 rounded-xl border border-vault-600/60 bg-vault-950/70 p-1"
+        className="relative mt-3 grid grid-cols-2 xs:grid-cols-4 gap-1 rounded-xl border border-vault-600/60 bg-vault-950/70 p-1"
       >
         {options.map((opt) => {
           const active = value === opt;

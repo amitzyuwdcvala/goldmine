@@ -198,10 +198,15 @@ export default function Page() {
         </div>
 
         {/* Rates Header with Unit Switcher */}
-        <div className="mt-5 sm:mt-8 flex items-center justify-between">
-          <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-parchment-200/50">
-            Selling rates
-          </p>
+        <div className="mt-5 sm:mt-8 flex items-center justify-between gap-2 flex-wrap">
+          <div className="flex items-center gap-2">
+            <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-parchment-200/50">
+              Selling rates
+            </p>
+            <span className="inline-flex items-center rounded-full bg-bullion-500/10 border border-bullion-500/20 px-2 py-0.5 font-mono text-[9px] sm:text-[10px] text-bullion-400/90 font-medium">
+              $10 labour already added
+            </span>
+          </div>
           <UnitToggle value={unit} onChange={setUnit} />
         </div>
 

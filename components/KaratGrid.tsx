@@ -25,10 +25,15 @@ export default function KaratGrid({
 }) {
   return (
     <div className="rounded-xl sm:rounded-2xl border border-vault-600/50 bg-vault-900/60 shadow-card overflow-hidden">
-      <div className="flex items-center justify-between border-b border-vault-600/50 px-3.5 py-2.5 sm:px-6 sm:py-4">
-        <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-parchment-200/60">
-          Karat-wise selling rates
-        </p>
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-vault-600/50 px-3.5 py-2.5 sm:px-6 sm:py-4">
+        <div className="flex items-center gap-2 flex-wrap">
+          <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-parchment-200/60">
+            Karat-wise selling rates
+          </p>
+          <span className="inline-flex items-center rounded-full bg-bullion-500/10 border border-bullion-500/25 px-2 py-0.5 font-mono text-[9px] sm:text-[10px] text-bullion-400 font-medium">
+            $10 labour already added
+          </span>
+        </div>
         <p className="font-mono text-[10px] sm:text-[11px] text-parchment-200/40">
           USD / {unit === "gram" ? "gram" : "tola"}
         </p>

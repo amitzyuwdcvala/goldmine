@@ -16,7 +16,7 @@ export const TROY_OUNCE_IN_GRAMS = 31.1035;
 export const TOLA_IN_GRAMS = 11.6638;
 export const FLAT_ADDITION_USD = 10;
 
-export type Adjustment = 35 | 50;
+export type Adjustment = 35 | 50 | 100 | 150;
 export type Karat = 24 | 22 | 18 | 14 | 10 | 9;
 
 export const KARAT_PERCENTAGES: Record<Karat, number> = {
