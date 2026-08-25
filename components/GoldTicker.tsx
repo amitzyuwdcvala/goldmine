@@ -8,7 +8,7 @@ export default function GoldTicker({
   timestamp,
   isOverridden,
   flash,
-  mode = "auto",
+  mode = "manual",
   providerName = "GoldAPI.io",
 }: {
   pricePerOunce: number;

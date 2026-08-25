@@ -30,7 +30,7 @@ export default function Page() {
   const [override, setOverride] = useState("");
   const [unit, setUnit] = useState<"gram" | "tola">("gram");
   const [flash, setFlash] = useState(false);
-  const [refreshMode, setRefreshMode] = useState<RefreshMode>("auto");
+  const [refreshMode, setRefreshMode] = useState<RefreshMode>("manual");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const lastPrice = useRef<number | null>(null);
 
