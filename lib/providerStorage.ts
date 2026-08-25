@@ -123,7 +123,7 @@ export async function getActiveProviderConfig(): Promise<{
   providerMeta: typeof PROVIDERS_META[ProviderId];
   apiKey: string;
 }> {
-  const { configs, activeProviderId } = await getAllProviderConfigs();
+  const { configs, activeProviderId } = await getAllProviderConfigs(true);
   const config = configs[activeProviderId];
   const apiKey = config?.api_key || process.env[PROVIDERS_META[activeProviderId].envKeyName] || "";
 
